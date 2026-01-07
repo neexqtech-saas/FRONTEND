@@ -1,0 +1,491 @@
+/**
+ * Payroll Settings Form Styles
+ * Professional, enterprise-grade styling
+ */
+
+.payroll-settings-container {
+  padding-bottom: 100px; // Space for fixed buttons
+
+  .settings-section {
+    margin-bottom: 2.5rem;
+
+    .section-header {
+      margin-bottom: 1.5rem;
+
+      .section-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #1e293b;
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+
+        i {
+          color: #3b82f6;
+          font-size: 1.375rem;
+        }
+      }
+
+      .section-description {
+        color: #64748b;
+        font-size: 0.9375rem;
+        margin: 0;
+      }
+    }
+  }
+
+  .settings-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 1.5rem;
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .settings-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    transition: all 0.2s ease;
+    overflow: visible; // Changed from hidden to allow tooltips to show
+
+    &:hover {
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+
+    .card-header {
+      padding: 1.25rem 1.5rem;
+      background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+      border-bottom: 1px solid #e2e8f0;
+      position: relative;
+      z-index: 1;
+      overflow: visible; // Allow tooltips to overflow
+
+      .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+
+        .card-title {
+          font-size: 1.125rem;
+          font-weight: 600;
+          color: #1e293b;
+          margin: 0;
+        }
+      }
+    }
+
+    .card-body {
+      padding: 1.5rem;
+      position: relative;
+      overflow: visible; // Allow tooltips to overflow
+    }
+  }
+
+  // Form Elements
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+
+    @media (max-width: 576px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .form-group {
+    margin-bottom: 1.25rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    .form-label {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: #475569;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.375rem;
+    }
+
+    .form-control,
+    .form-select {
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 0.625rem 0.875rem;
+      font-size: 0.9375rem;
+      color: #1e293b;
+      transition: all 0.2s ease;
+
+      &:focus {
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        outline: none;
+      }
+
+      &::placeholder {
+        color: #94a3b8;
+      }
+    }
+
+    .form-select {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+      background-position: right 0.5rem center;
+      background-repeat: no-repeat;
+      background-size: 1.5em 1.5em;
+      padding-right: 2.5rem;
+      appearance: none;
+    }
+  }
+
+  // Input with prefix/suffix
+  .input-with-prefix,
+  .input-with-suffix {
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    .input-prefix {
+      position: absolute;
+      left: 0.875rem;
+      color: #64748b;
+      font-weight: 500;
+      z-index: 1;
+    }
+
+    .input-suffix {
+      position: absolute;
+      right: 0.875rem;
+      color: #64748b;
+      font-weight: 500;
+    }
+
+    .form-control {
+      padding-left: 2rem;
+
+      &.readonly-input {
+        padding-right: 4rem;
+      }
+    }
+
+    &.readonly-input {
+      .form-control {
+        background-color: #f8fafc;
+        cursor: not-allowed;
+        color: #64748b;
+      }
+
+      .readonly-badge {
+        position: absolute;
+        right: 0.875rem;
+        background: #e2e8f0;
+        color: #64748b;
+        font-size: 0.75rem;
+        font-weight: 500;
+        padding: 0.25rem 0.5rem;
+        border-radius: 4px;
+      }
+    }
+  }
+
+  .input-with-suffix .form-control {
+    padding-right: 2.5rem;
+  }
+
+  .form-text {
+    font-size: 0.8125rem;
+    color: #64748b;
+    margin-top: 0.25rem;
+    margin-bottom: 0;
+  }
+
+  // Toggle Switch
+  .toggle-container {
+    position: relative;
+
+    &[data-tooltip] {
+      &::after {
+        content: attr(data-tooltip);
+        position: absolute;
+        bottom: calc(100% + 8px);
+        right: 0;
+        background: #1e293b;
+        color: #ffffff;
+        padding: 0.5rem 0.75rem;
+        border-radius: 6px;
+        font-size: 0.8125rem;
+        white-space: nowrap;
+        z-index: 1000;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.2s ease, transform 0.2s ease;
+        transform: translateY(-4px);
+        min-width: 200px;
+        max-width: 300px;
+        white-space: normal;
+        text-align: left;
+        line-height: 1.4;
+      }
+
+      &::before {
+        content: "";
+        position: absolute;
+        bottom: calc(100% + 2px);
+        right: 12px;
+        border: 4px solid transparent;
+        border-top-color: #1e293b;
+        z-index: 1001;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.2s ease;
+      }
+
+      &:hover::after,
+      &:hover::before {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0);
+      }
+    }
+  }
+
+  .toggle-switch {
+    display: none;
+
+    &:checked + .toggle-label {
+      background: #3b82f6;
+
+      &::before {
+        transform: translateX(24px);
+      }
+    }
+  }
+
+  .toggle-label {
+    display: block;
+    width: 52px;
+    height: 28px;
+    background: #cbd5e1;
+    border-radius: 14px;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &::before {
+      content: "";
+      position: absolute;
+      width: 22px;
+      height: 22px;
+      background: #ffffff;
+      border-radius: 50%;
+      top: 3px;
+      left: 3px;
+      transition: transform 0.3s ease;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    &:hover {
+      background: #94a3b8;
+    }
+  }
+
+  .toggle-switch:checked + .toggle-label:hover {
+    background: #2563eb;
+  }
+
+  // Small Toggle Switch (for PT)
+  .toggle-container-small {
+    .toggle-label {
+      width: 44px;
+      height: 24px;
+
+      &::before {
+        width: 18px;
+        height: 18px;
+        top: 3px;
+        left: 3px;
+      }
+    }
+
+    .toggle-switch:checked + .toggle-label::before {
+      transform: translateX(20px);
+    }
+  }
+
+  // Toggle Row (for full-width toggles)
+  .toggle-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 1rem;
+    background: #f8fafc;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+
+    .toggle-label-content {
+      flex: 1;
+      margin-right: 1rem;
+    }
+  }
+
+  // Tooltip Icon
+  .tooltip-icon {
+    position: relative;
+    cursor: help;
+    color: #94a3b8;
+    font-size: 0.875rem;
+    transition: color 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+
+    &:hover {
+      color: #3b82f6;
+    }
+  }
+
+  // Tooltip Popup (JavaScript-based)
+  .tooltip-popup {
+    position: fixed;
+    background: #1e293b;
+    color: #ffffff;
+    padding: 0.625rem 0.875rem;
+    border-radius: 8px;
+    font-size: 0.8125rem;
+    white-space: normal;
+    width: 250px;
+    max-width: 300px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    line-height: 1.5;
+    word-wrap: break-word;
+    animation: tooltipFadeIn 0.2s ease;
+
+    .tooltip-arrow {
+      position: absolute;
+      bottom: -6px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-top: 6px solid #1e293b;
+    }
+  }
+
+  @keyframes tooltipFadeIn {
+    from {
+      opacity: 0;
+      transform: translate(-50%, calc(-100% - 5px));
+    }
+    to {
+      opacity: 1;
+      transform: translate(-50%, -100%);
+    }
+  }
+
+  // Fixed Action Buttons
+  .fixed-action-buttons {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background: #ffffff;
+    border-top: 1px solid #e2e8f0;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    box-shadow: 0 -4px 6px -1px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+
+    @media (max-width: 768px) {
+      padding: 1rem;
+      flex-direction: column-reverse;
+
+      .btn {
+        width: 100%;
+      }
+    }
+
+    .btn {
+      padding: 0.75rem 1.5rem;
+      font-weight: 500;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      &.btn-primary {
+        background: #3b82f6;
+        border-color: #3b82f6;
+        color: #ffffff;
+
+        &:hover {
+          background: #2563eb;
+          border-color: #2563eb;
+          transform: translateY(-1px);
+          box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.3);
+        }
+
+        &:active {
+          transform: translateY(0);
+        }
+      }
+
+      &.btn-secondary {
+        background: #ffffff;
+        border-color: #cbd5e1;
+        color: #475569;
+
+        &:hover {
+          background: #f8fafc;
+          border-color: #94a3b8;
+        }
+      }
+
+      i {
+        font-size: 1rem;
+      }
+    }
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 1200px) {
+  .payroll-settings-container .settings-grid {
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  }
+}
+
+@media (max-width: 992px) {
+  .payroll-settings-container .settings-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+// Animation for card content
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.settings-card .card-body {
+  animation: fadeIn 0.3s ease;
+}

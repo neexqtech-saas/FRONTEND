@@ -1,0 +1,505 @@
+/**
+ * Assign Structure Modal Styles
+ * Enterprise-grade styling for comprehensive salary assignment
+ */
+
+#assignStructureModal {
+  .modal-dialog {
+    max-width: 1200px;
+  }
+
+  .modal-content {
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    border: none;
+  }
+
+  .modal-header {
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+    border-bottom: 2px solid #e9ecef;
+    padding: 1.25rem 1.5rem;
+
+    .modal-title {
+      font-weight: 600;
+      color: #212529;
+      font-size: 1.25rem;
+      display: flex;
+      align-items: center;
+
+      i {
+        color: #0066cc;
+      }
+    }
+
+    .btn-close {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      opacity: 0.5;
+      transition: opacity 0.2s ease;
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+
+  .modal-body {
+    padding: 1.5rem;
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
+  }
+
+  // Section Titles
+  .section-title {
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #e9ecef;
+
+    i {
+      font-size: 1.125rem;
+    }
+  }
+
+  // SECTION A: Structure & Gross
+  .section-structure-gross {
+    background-color: #f8f9fa;
+    padding: 1.25rem;
+    border-radius: 0.5rem;
+    border: 1px solid #e9ecef;
+
+    .form-label {
+      font-weight: 500;
+      color: #495057;
+      margin-bottom: 0.5rem;
+      font-size: 0.875rem;
+    }
+
+    .input-group-text {
+      background-color: #e9ecef;
+      border-color: #dee2e6;
+      color: #495057;
+      font-weight: 500;
+    }
+  }
+
+  // SECTION B: Earnings
+  .section-earnings {
+    .alert-info {
+      background-color: #e7f3ff;
+      border-color: #b3d9ff;
+      color: #004085;
+      border-radius: 0.375rem;
+      padding: 0.75rem 1rem;
+      font-size: 0.875rem;
+
+      i {
+        color: #0066cc;
+      }
+    }
+
+    .table {
+      margin-bottom: 0;
+      background-color: #ffffff;
+      border-radius: 0.375rem;
+      overflow: hidden;
+      border: 1px solid #dee2e6;
+
+      thead {
+        th {
+          font-weight: 600;
+          font-size: 0.875rem;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          color: #495057;
+          border-bottom: 2px solid #dee2e6;
+          padding: 0.75rem;
+          background-color: #f8f9fa;
+        }
+      }
+
+      tbody {
+        tr {
+          transition: background-color 0.2s ease;
+
+          &:hover {
+            background-color: #f8f9fa;
+          }
+
+          &.system-row {
+            background-color: #f0f4f8;
+            border-left: 3px solid #6c757d;
+
+            &:hover {
+              background-color: #e9ecef;
+            }
+          }
+
+          &.balancer-row {
+            background-color: #fff9e6 !important;
+            border-left: 3px solid #ffc107;
+
+            &:hover {
+              background-color: #fff3cd !important;
+            }
+          }
+
+          &.table-primary {
+            background-color: #e7f3ff !important;
+            border-top: 2px solid #0066cc;
+            font-size: 1rem;
+
+            td {
+              padding: 0.875rem 0.75rem;
+            }
+          }
+
+          td {
+            padding: 0.75rem;
+            vertical-align: middle;
+
+            .badge {
+              font-weight: 500;
+              padding: 0.25rem 0.5rem;
+              font-size: 0.7rem;
+            }
+
+            small {
+              font-size: 0.75rem;
+              color: #6c757d;
+              font-style: italic;
+            }
+
+            .fw-semibold {
+              font-size: 0.9375rem;
+            }
+          }
+        }
+      }
+    }
+
+    // Toggle Switch Styling
+    .form-check-input {
+      width: 2.5rem;
+      height: 1.25rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+
+      &:checked {
+        background-color: #28a745;
+        border-color: #28a745;
+      }
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+    }
+  }
+
+  // SECTION C: Deductions
+  .section-deductions {
+    .alert-warning {
+      background-color: #fff3cd;
+      border-color: #ffc107;
+      color: #856404;
+      border-radius: 0.375rem;
+      padding: 0.75rem 1rem;
+      font-size: 0.875rem;
+
+      i {
+        color: #ffc107;
+      }
+    }
+
+    .table {
+      margin-bottom: 0;
+      background-color: #ffffff;
+      border-radius: 0.375rem;
+      overflow: hidden;
+      border: 1px solid #dee2e6;
+
+      thead {
+        th {
+          font-weight: 600;
+          font-size: 0.875rem;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          color: #495057;
+          border-bottom: 2px solid #dee2e6;
+          padding: 0.75rem;
+          background-color: #f8f9fa;
+        }
+      }
+
+      tbody {
+        tr {
+          transition: background-color 0.2s ease;
+
+          &:hover {
+            background-color: #f8f9fa;
+          }
+
+          &.table-secondary {
+            background-color: #e9ecef !important;
+            border-top: 2px solid #6c757d;
+            font-size: 1rem;
+
+            td {
+              padding: 0.875rem 0.75rem;
+            }
+          }
+
+          td {
+            padding: 0.75rem;
+            vertical-align: middle;
+
+            small {
+              font-size: 0.75rem;
+              color: #6c757d;
+              font-style: italic;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // SECTION D: Summary
+  .section-summary {
+    .alert-danger {
+      background-color: #f8d7da;
+      border-color: #f5c6cb;
+      color: #721c24;
+      border-radius: 0.375rem;
+      padding: 0.75rem 1rem;
+
+      i {
+        color: #dc3545;
+      }
+    }
+
+    .summary-card {
+      background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+      padding: 1.5rem;
+      border-radius: 0.5rem;
+      border: 2px solid #e9ecef;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+
+      .summary-item {
+        text-align: center;
+        padding: 1rem;
+        background-color: #ffffff;
+        border-radius: 0.375rem;
+        border: 1px solid #e9ecef;
+        transition: all 0.2s ease;
+
+        &:hover {
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+          transform: translateY(-2px);
+        }
+
+        &.highlight {
+          background: linear-gradient(135deg, #e7f3ff 0%, #ffffff 100%);
+          border: 2px solid #0066cc;
+        }
+
+        label {
+          display: block;
+          font-size: 0.75rem;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          color: #6c757d;
+          margin-bottom: 0.5rem;
+          font-weight: 600;
+        }
+
+        .value {
+          font-size: 1.5rem;
+          font-weight: 600;
+          margin: 0;
+
+          &.text-primary {
+            color: #0066cc !important;
+          }
+
+          &.text-success {
+            color: #28a745 !important;
+          }
+
+          &.text-danger {
+            color: #dc3545 !important;
+          }
+
+          &.text-dark {
+            color: #212529 !important;
+          }
+        }
+      }
+    }
+  }
+
+  // Form controls
+  .form-label {
+    font-weight: 500;
+    color: #495057;
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+  }
+
+  .form-control,
+  .form-select {
+    border-color: #dee2e6;
+    transition: all 0.2s ease;
+    font-size: 0.9375rem;
+
+    &:focus {
+      border-color: #0066cc;
+      box-shadow: 0 0 0 0.2rem rgba(0, 102, 204, 0.25);
+    }
+
+    &:disabled {
+      background-color: #f8f9fa;
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+  }
+
+  // Divider
+  hr {
+    border-top: 2px solid #e9ecef;
+    margin: 1.5rem 0;
+    opacity: 1;
+  }
+
+  // Modal footer
+  .modal-footer {
+    border-top: 2px solid #e9ecef;
+    padding: 1rem 1.5rem;
+    background-color: #f8f9fa;
+    border-radius: 0 0 0.5rem 0.5rem;
+
+    .btn {
+      min-width: 120px;
+      font-weight: 500;
+      padding: 0.625rem 1.25rem;
+      border-radius: 0.375rem;
+      transition: all 0.2s ease;
+
+      &.btn-primary {
+        background-color: #0066cc;
+        border-color: #0066cc;
+
+        &:hover:not(:disabled) {
+          background-color: #0052a3;
+          border-color: #0052a3;
+          transform: translateY(-1px);
+          box-shadow: 0 4px 8px rgba(0, 102, 204, 0.3);
+        }
+      }
+
+      &.btn-secondary {
+        background-color: #6c757d;
+        border-color: #6c757d;
+
+        &:hover {
+          background-color: #5a6268;
+          border-color: #5a6268;
+        }
+      }
+
+      &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+      }
+    }
+  }
+
+  // Loading spinner
+  .spinner-border {
+    width: 3rem;
+    height: 3rem;
+    border-width: 0.3rem;
+  }
+
+  // Lock icon styling
+  .ti-lock {
+    opacity: 0.7;
+  }
+
+  // Empty state
+  .text-center {
+    padding: 2rem;
+    color: #6c757d;
+
+    i {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 1200px) {
+  #assignStructureModal {
+    .modal-dialog {
+      max-width: 95%;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  #assignStructureModal {
+    .modal-body {
+      padding: 1rem;
+    }
+
+    .section-structure-gross,
+    .summary-card {
+      padding: 1rem;
+    }
+
+    .table {
+      font-size: 0.875rem;
+
+      thead th,
+      tbody td {
+        padding: 0.5rem;
+      }
+    }
+
+    .summary-item {
+      .value {
+        font-size: 1.25rem !important;
+      }
+    }
+  }
+}
+
+// Scrollbar styling for modal body
+#assignStructureModal .modal-body {
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+
+    &:hover {
+      background: #555;
+    }
+  }
+}

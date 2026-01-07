@@ -1,0 +1,88 @@
+.run-payroll-page {
+  .nav-tabs {
+    border-bottom: 2px solid #e0e0e0;
+
+    .nav-link {
+      color: #666;
+      border: none;
+      border-bottom: 2px solid transparent;
+      padding: 0.75rem 1.5rem;
+      font-weight: 500;
+
+      &:hover {
+        border-color: transparent;
+        color: #F26522;
+      }
+
+      &.active {
+        color: #F26522;
+        border-bottom-color: #F26522;
+        background-color: transparent;
+      }
+    }
+  }
+
+  .card {
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    border-radius: 4px;
+
+    .card-header {
+      background-color: #ffffff;
+      border-bottom: 2px solid #f0f0f0;
+    }
+  }
+}
+
+.nav-tabs {
+  border-bottom: 2px solid #e0e0e0;
+
+  .nav-link {
+    color: #666;
+    border: none;
+    border-bottom: 2px solid transparent;
+    padding: 0.75rem 1.5rem;
+    font-weight: 500;
+
+    &:hover {
+      border-color: transparent;
+      color: #F26522;
+    }
+
+    &.active {
+      color: #F26522;
+      border-bottom-color: #F26522;
+      background-color: transparent;
+    }
+  }
+}
+
+.earnings-upload-tab {
+  .card-header {
+    .btn-primary {
+      background-color: #F26522;
+      border-color: #F26522;
+      color: #ffffff;
+
+      &:hover {
+        background-color: #d85a1e;
+        border-color: #d85a1e;
+      }
+    }
+  }
+}
+
+.deductions-upload-tab {
+  .card-header {
+    .btn-primary {
+      background-color: #F26522;
+      border-color: #F26522;
+      color: #ffffff;
+
+      &:hover {
+        background-color: #d85a1e;
+        border-color: #d85a1e;
+      }
+    }
+  }
+}

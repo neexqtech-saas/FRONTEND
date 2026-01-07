@@ -1,0 +1,494 @@
+/**
+ * Assign Pay Drawer Styles
+ * Right-side slide drawer for assigning gross pay to employees
+ */
+
+.assign-pay-drawer-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1040;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+
+  &.open {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.assign-pay-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 480px;
+  max-width: 90vw;
+  background-color: #ffffff;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 1050;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &.open {
+    transform: translateX(0);
+  }
+
+  // Header
+  .drawer-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid #e9ecef;
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+
+      .employee-info {
+        flex: 1;
+
+        .employee-name {
+          font-size: 1.25rem;
+          font-weight: 600;
+          color: #212529;
+          margin: 0 0 0.25rem 0;
+          line-height: 1.4;
+        }
+
+        .employee-id {
+          font-size: 0.875rem;
+          color: #6c757d;
+          margin: 0;
+          font-weight: 500;
+        }
+      }
+
+      .close-btn {
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        color: #6c757d;
+        cursor: pointer;
+        padding: 0.5rem;
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 6px;
+        transition: all 0.2s ease;
+
+        &:hover {
+          background-color: #e9ecef;
+          color: #212529;
+        }
+      }
+    }
+
+    .header-meta {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+
+      .badge {
+        padding: 0.375rem 0.75rem;
+        border-radius: 0.375rem;
+        font-size: 0.75rem;
+        font-weight: 500;
+        display: inline-flex;
+        align-items: center;
+
+        &.badge-structure {
+          background-color: #e7f3ff;
+          color: #0066cc;
+          border: 1px solid #b3d9ff;
+        }
+
+        &.badge-period {
+          background-color: #f0f0f0;
+          color: #495057;
+          border: 1px solid #dee2e6;
+        }
+      }
+    }
+  }
+
+  // Body
+  .drawer-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1.5rem;
+    background-color: #ffffff;
+
+    .loading-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem 1rem;
+      text-align: center;
+    }
+
+    .section {
+      margin-bottom: 2rem;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      .section-label {
+        display: flex;
+        align-items: center;
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: #495057;
+        margin-bottom: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid #e9ecef;
+
+        i {
+          color: #0066cc;
+          font-size: 1rem;
+        }
+      }
+    }
+
+    // Gross Pay Section
+    .gross-pay-section {
+      background-color: #f8f9fa;
+      padding: 1.25rem;
+      border-radius: 0.5rem;
+      border: 1px solid #e9ecef;
+
+      .input-group {
+        margin-bottom: 0.5rem;
+
+        .input-group-text {
+          background-color: #ffffff;
+          border-color: #dee2e6;
+          color: #495057;
+          font-weight: 600;
+          font-size: 1rem;
+        }
+
+        .form-control {
+          border-color: #dee2e6;
+          font-size: 1.25rem;
+          font-weight: 600;
+          padding: 0.75rem;
+          height: auto;
+
+          &:focus {
+            border-color: #0066cc;
+            box-shadow: 0 0 0 0.2rem rgba(0, 102, 204, 0.25);
+          }
+
+          &:disabled {
+            background-color: #f8f9fa;
+            opacity: 0.6;
+          }
+        }
+      }
+
+      .form-text {
+        display: flex;
+        align-items: center;
+        font-size: 0.75rem;
+        margin-top: 0.5rem;
+        color: #6c757d;
+      }
+    }
+
+    // Earnings & Deductions Sections
+    .earnings-section,
+    .deductions-section {
+      .components-list {
+        .component-row {
+          display: flex;
+          align-items: center;
+          padding: 1rem;
+          border: 1px solid #e9ecef;
+          border-radius: 0.5rem;
+          margin-bottom: 0.75rem;
+          background-color: #ffffff;
+          transition: all 0.2s ease;
+
+          &:hover {
+            border-color: #dee2e6;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+          }
+
+          &.balancer {
+            background-color: #fff9e6;
+            border-color: #ffd700;
+            border-width: 2px;
+
+            &.locked {
+              background-color: #f8f9fa;
+              border-color: #dee2e6;
+              opacity: 0.9;
+            }
+
+            .component-info .component-name {
+              color: #495057;
+              font-weight: 600;
+            }
+          }
+
+          .component-toggle {
+            margin-right: 1rem;
+            flex-shrink: 0;
+
+            .toggle-switch {
+              position: relative;
+              display: inline-block;
+              width: 48px;
+              height: 26px;
+              margin: 0;
+
+              input {
+                opacity: 0;
+                width: 0;
+                height: 0;
+
+                &:checked + .toggle-slider {
+                  background-color: #28a745;
+
+                  &:before {
+                    transform: translateX(22px);
+                  }
+                }
+
+                &:disabled + .toggle-slider {
+                  opacity: 0.5;
+                  cursor: not-allowed;
+                }
+              }
+
+              .toggle-slider {
+                position: absolute;
+                cursor: pointer;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: #ccc;
+                transition: 0.3s;
+                border-radius: 26px;
+
+                &:before {
+                  position: absolute;
+                  content: "";
+                  height: 20px;
+                  width: 20px;
+                  left: 3px;
+                  bottom: 3px;
+                  background-color: white;
+                  transition: 0.3s;
+                  border-radius: 50%;
+                  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+                }
+              }
+            }
+          }
+
+          .component-info {
+            flex: 1;
+            min-width: 0;
+
+            .component-name {
+              font-size: 0.9375rem;
+              font-weight: 500;
+              color: #212529;
+              margin-bottom: 0.25rem;
+              display: flex;
+              align-items: center;
+              gap: 0.5rem;
+
+              .badge-auto {
+                background-color: #fff3cd;
+                color: #856404;
+                font-size: 0.625rem;
+                padding: 0.125rem 0.5rem;
+                border-radius: 0.25rem;
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+              }
+            }
+
+            .component-calculation {
+              font-size: 0.75rem;
+              color: #6c757d;
+              font-style: italic;
+            }
+          }
+
+          .component-amount {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #212529;
+            text-align: right;
+            min-width: 120px;
+            flex-shrink: 0;
+
+            .text-muted {
+              color: #adb5bd;
+            }
+          }
+        }
+      }
+    }
+
+    // Summary Section
+    .summary-section {
+      background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+      padding: 1.25rem;
+      border-radius: 0.5rem;
+      border: 2px solid #e9ecef;
+
+      .summary-list {
+        .summary-row {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 0.875rem 0;
+          border-bottom: 1px solid #e9ecef;
+
+          &:last-child {
+            border-bottom: none;
+          }
+
+          &.summary-row-total {
+            padding-top: 1rem;
+            margin-top: 0.5rem;
+            border-top: 2px solid #dee2e6;
+            border-bottom: none;
+          }
+
+          &.summary-row-error {
+            background-color: #fff3cd;
+            padding: 0.75rem;
+            border-radius: 0.375rem;
+            margin-top: 0.5rem;
+            border: 1px solid #ffc107;
+          }
+
+          .summary-label {
+            font-size: 0.9375rem;
+            color: #495057;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+          }
+
+          .summary-value {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #212529;
+
+            &.text-success {
+              color: #28a745;
+            }
+
+            &.text-danger {
+              color: #dc3545;
+            }
+
+            &.text-warning {
+              color: #856404;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // Footer
+  .drawer-footer {
+    padding: 1.25rem 1.5rem;
+    border-top: 1px solid #e9ecef;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.05);
+
+    .btn {
+      min-width: 130px;
+      padding: 0.75rem 1.5rem;
+      font-weight: 500;
+      border-radius: 0.5rem;
+      transition: all 0.2s ease;
+      font-size: 0.9375rem;
+
+      &.btn-primary {
+        background-color: #0066cc;
+        border-color: #0066cc;
+        color: #ffffff;
+
+        &:hover:not(:disabled) {
+          background-color: #0052a3;
+          border-color: #0052a3;
+          transform: translateY(-1px);
+          box-shadow: 0 4px 8px rgba(0, 102, 204, 0.3);
+        }
+
+        &:disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
+          transform: none;
+        }
+      }
+
+      &.btn-secondary {
+        background-color: #6c757d;
+        border-color: #6c757d;
+        color: #ffffff;
+
+        &:hover:not(:disabled) {
+          background-color: #5a6268;
+          border-color: #545b62;
+        }
+      }
+    }
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .assign-pay-drawer {
+    width: 100vw;
+    max-width: 100vw;
+  }
+}
+
+// Scrollbar styling
+.drawer-body {
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 3px;
+
+    &:hover {
+      background: #a8a8a8;
+    }
+  }
+}

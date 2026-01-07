@@ -1,0 +1,337 @@
+.run-payroll-tab {
+  .payroll-table-wrapper {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    background: white;
+    border: 1px solid #e5e7eb;
+  }
+
+  .payroll-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 13.5px;
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
+
+    thead {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+
+      th {
+        padding: 16px 14px;
+        font-weight: 600;
+        font-size: 11.5px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        border-bottom: 3px solid #e5e7eb;
+        white-space: nowrap;
+        vertical-align: middle;
+        background: linear-gradient(to bottom, #ffffff, #f9fafb);
+        color: #374151;
+        position: relative;
+        
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          height: 2px;
+          background: linear-gradient(to right, transparent, #d1d5db, transparent);
+        }
+        
+        &.sticky-column {
+          box-shadow: 3px 0 6px rgba(0, 0, 0, 0.1);
+          background: linear-gradient(to bottom, #ffffff, #f9fafb) !important;
+        }
+
+        &.base-header {
+          background: linear-gradient(to bottom, #f9fafb, #f3f4f6);
+          color: #1f2937;
+          font-weight: 700;
+        }
+
+        &.earnings-header {
+          background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+          color: #065f46;
+          border-left: 3px solid #10b981;
+          font-weight: 700;
+          font-size: 12px;
+        }
+
+        &.deductions-header {
+          background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+          color: #991b1b;
+          border-left: 3px solid #ef4444;
+          font-weight: 700;
+          font-size: 12px;
+        }
+
+        &.summary-header {
+          font-weight: 700;
+          border-left: 2px solid #d1d5db;
+          background: linear-gradient(to bottom, #ffffff, #f9fafb);
+        }
+
+        &.earnings-col {
+          background: linear-gradient(to bottom, #f0fdf4, #ecfdf5);
+          color: #166534;
+          border-left: 1px solid #bbf7d0;
+          min-width: 140px;
+          font-weight: 600;
+          font-size: 12px;
+        }
+
+        &.deductions-col {
+          background: linear-gradient(to bottom, #fef2f2, #fee2e2);
+          color: #991b1b;
+          border-left: 1px solid #fecaca;
+          min-width: 140px;
+          font-weight: 600;
+          font-size: 12px;
+        }
+
+        &.total-earnings {
+          background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+          color: #065f46;
+          font-weight: 700;
+        }
+
+        &.total-deductions {
+          background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+          color: #991b1b;
+          font-weight: 700;
+        }
+
+        &.net-pay {
+          background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+          color: #1e40af;
+          font-weight: 700;
+        }
+      }
+    }
+
+    tbody {
+      tr {
+        transition: all 0.2s ease;
+        border-bottom: 1px solid #e5e7eb;
+        background: white;
+
+        &:hover {
+          background: linear-gradient(to right, #f9fafb, #ffffff);
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+          transform: translateY(-1px);
+        }
+
+        &:last-child {
+          border-bottom: 2px solid #e5e7eb;
+        }
+
+        &:nth-child(even) {
+          background: #fafbfc;
+          
+          &:hover {
+            background: linear-gradient(to right, #f3f4f6, #fafbfc);
+          }
+        }
+
+        td {
+          padding: 16px 14px;
+          vertical-align: middle;
+          border-right: 1px solid #f3f4f6;
+          background: inherit;
+          transition: all 0.15s ease;
+
+          &.sticky-column {
+            box-shadow: 3px 0 6px rgba(0, 0, 0, 0.08);
+            background: inherit !important;
+          }
+
+          &.base-col {
+            font-weight: 600;
+            color: #111827;
+            background: linear-gradient(to right, #f9fafb, #ffffff);
+            font-size: 13px;
+          }
+
+          &.earnings-cell {
+            background: linear-gradient(to right, #f0fdf4, #ffffff);
+            color: #166534;
+            font-weight: 600;
+            text-align: right;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 13.5px;
+            
+            &:hover {
+              background: linear-gradient(to right, #dcfce7, #f0fdf4);
+            }
+          }
+
+          &.deductions-cell {
+            background: linear-gradient(to right, #fef2f2, #ffffff);
+            color: #991b1b;
+            font-weight: 600;
+            text-align: right;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 13.5px;
+            
+            &:hover {
+              background: linear-gradient(to right, #fee2e2, #fef2f2);
+            }
+          }
+
+          &.summary-cell {
+            font-weight: 700;
+            text-align: right;
+            font-size: 14px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            letter-spacing: 0.3px;
+          }
+
+          &.total-earnings {
+            background: linear-gradient(to right, #d1fae5, #ecfdf5);
+            color: #065f46;
+            font-size: 14.5px;
+          }
+
+          &.total-deductions {
+            background: linear-gradient(to right, #fee2e2, #fef2f2);
+            color: #991b1b;
+            font-size: 14.5px;
+          }
+
+          &.net-pay {
+            background: linear-gradient(to right, #dbeafe, #eff6ff);
+            color: #1e40af;
+            font-size: 15px;
+            font-weight: 800;
+          }
+
+          &:empty::before {
+            content: "-";
+            color: #9ca3af;
+            font-weight: 400;
+          }
+        }
+      }
+    }
+  }
+
+  .table-responsive {
+    max-height: calc(100vh - 300px);
+    overflow: auto;
+    border-radius: 8px;
+    position: relative;
+
+    &::-webkit-scrollbar {
+      width: 10px;
+      height: 10px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: #f3f4f6;
+      border-radius: 5px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: linear-gradient(to bottom, #9ca3af, #6b7280);
+      border-radius: 5px;
+      border: 2px solid #f3f4f6;
+
+      &:hover {
+        background: linear-gradient(to bottom, #6b7280, #4b5563);
+      }
+    }
+  }
+
+  .card {
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    border-radius: 10px;
+    overflow: hidden;
+    background: white;
+
+    .card-header {
+      background: linear-gradient(to right, #ffffff, #f9fafb);
+      color: #374151;
+      border-bottom: 2px solid #e5e7eb;
+      padding: 18px 24px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+
+      h5 {
+        color: #111827;
+        margin: 0;
+        font-weight: 700;
+        font-size: 16px;
+        letter-spacing: 0.3px;
+      }
+    }
+
+    .card-body {
+      padding: 0;
+      background: #ffffff;
+    }
+  }
+
+  .badge {
+    padding: 6px 10px;
+    font-size: 11.5px;
+    font-weight: 600;
+    border-radius: 6px;
+    letter-spacing: 0.3px;
+    border: 1px solid transparent;
+    display: inline-block;
+    
+    &.bg-primary-subtle {
+      background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%) !important;
+      color: #1e40af !important;
+      border-color: #93c5fd;
+    }
+    
+    &.bg-info-subtle {
+      background: linear-gradient(135deg, #cffafe 0%, #a5f3fc 100%) !important;
+      color: #0e7490 !important;
+      border-color: #67e8f9;
+    }
+  }
+
+  code {
+    background: #f8f9fa;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-size: 11px;
+  }
+
+  .cursor-pointer {
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: rgba(13, 110, 253, 0.1) !important;
+    }
+  }
+
+  .list-unstyled {
+    li {
+      padding-left: 0.5rem;
+      line-height: 1.6;
+
+      strong {
+        color: #495057;
+      }
+
+      .badge {
+        font-size: 0.75rem;
+        padding: 0.25rem 0.5rem;
+      }
+
+      small {
+        display: block;
+        margin-top: 0.25rem;
+        font-style: italic;
+      }
+    }
+  }
+}

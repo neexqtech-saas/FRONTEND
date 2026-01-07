@@ -1,0 +1,95 @@
+.payroll-tabs {
+  border-bottom: 1px solid #e2e8f0;
+  margin-bottom: 0;
+  
+  .nav-item {
+    margin-bottom: -1px;
+  }
+
+  .nav-link {
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: #64748b;
+    padding: 1rem 1.5rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    background: transparent;
+    
+    &:hover {
+      color: #3b82f6;
+      border-bottom-color: #cbd5e1;
+    }
+
+    &.active {
+      color: #3b82f6;
+      border-bottom-color: #3b82f6;
+      background: transparent;
+    }
+
+    i {
+      font-size: 1rem;
+    }
+  }
+}
+
+.tab-content {
+  padding-top: 0;
+}
+
+// Wrapper for tab content components
+.tab-content-wrapper {
+  width: 100%;
+  min-height: 400px;
+  
+  // Hide page wrappers and breadcrumbs when used in tabs
+  .page-wrapper {
+    margin: 0 !important;
+    padding: 0 !important;
+    
+    .content {
+      padding: 0 !important;
+      
+      .page-breadcrumb {
+        display: none !important;
+      }
+    }
+  }
+  
+  // Ensure proper spacing and layout
+  > * {
+    width: 100%;
+  }
+}
+
+// Wrapper for page components used in tabs
+.payslip-tab-wrapper,
+.settings-tab-wrapper,
+.bank-details-tab-wrapper {
+  // Hide duplicate page wrappers when used in tabs
+  > .page-wrapper {
+    margin: 0;
+    padding: 0;
+    
+    > .content {
+      padding: 0;
+      
+      > .page-breadcrumb {
+        display: none !important;
+      }
+    }
+  }
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .payroll-tabs {
+    .nav-link {
+      padding: 0.75rem 1rem;
+      font-size: 0.875rem;
+      
+      i {
+        display: none;
+      }
+    }
+  }
+}

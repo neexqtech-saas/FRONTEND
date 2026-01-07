@@ -1,0 +1,21 @@
+.payslip-list-view {
+  .table {
+    font-size: 0.9rem;
+    
+    th {
+      font-weight: 600;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #495057;
+    }
+    
+    td {
+      vertical-align: middle;
+    }
+  }
+  
+  .badge {
+    font-weight: 500;
+  }
+}
