@@ -12,8 +12,8 @@
 
 // Change this value to your backend server URL
 // Production में इसे अपने actual API URL से replace करें
-export const API_BASE_URL = 'http://127.0.0.1:8000';  // Localhost for development
-// export const API_BASE_URL = 'https://app.neexq.com';  // HTTPS URL - fixes mixed content err
+// export const API_BASE_URL = 'http://127.0.0.1:8000';  // Localhost for development
+export const API_BASE_URL = 'https://app.neexq.com';  // HTTPS URL - fixes mixed content err
 // Backend API Path (with /api/ suffix)
 export const BACKEND_PATH = `${API_BASE_URL}/api/`;
 
