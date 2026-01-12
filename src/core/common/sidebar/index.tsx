@@ -18,6 +18,7 @@ import axios from "axios";
 import { BACKEND_PATH } from "../../../environment";
 import { getSelectedSiteId, getSelectedSiteName, getAdminIdForApi, notifySiteChange } from "../../utils/apiHelpers";
 import { toast } from "react-toastify";
+import { all_routes } from "../../../feature-module/router/all_routes";
 
 interface Admin {
   id: string;
@@ -27,6 +28,7 @@ interface Admin {
 }
 
 const Sidebar = () => {
+  const routes = all_routes;
   // Get organization settings to filter menu items
   const orgSettings = useOrganizationSettings();
   const enabledMenuItems = orgSettings?.enabled_menu_items || {};
@@ -274,7 +276,7 @@ const Sidebar = () => {
         margin-top: -8px !important;
       }
     `}</style>
-    <Link to="routes.index" className="logo logo-normal">
+    <Link to={routes.adminDashboard} className="logo logo-normal">
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
         <ImageWithBasePath 
           src="assets/img/logo/logo5.png" 
@@ -284,7 +286,7 @@ const Sidebar = () => {
         />
       </div>
     </Link>
-    <Link to="routes.index" className="logo-small">
+    <Link to={routes.adminDashboard} className="logo-small">
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         <div style={{ width: '50px', height: 'auto' }}>
           <ImageWithBasePath 
@@ -295,7 +297,7 @@ const Sidebar = () => {
         </div>
       </div>
     </Link>
-    <Link to="routes.index" className="dark-logo">
+    <Link to={routes.adminDashboard} className="dark-logo">
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%' }}>
         <ImageWithBasePath 
           src="assets/img/logo/logo5.png" 

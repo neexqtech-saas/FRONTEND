@@ -605,17 +605,17 @@ const Companies = () => {
           className="btn btn-sm btn-outline-secondary"
           onClick={(e) => {
             e.preventDefault();
+            e.stopPropagation();
             console.log("Selected employee for leave:", record);
             
-            // Clean up any stray backdrops before opening modal using utility function
+            setSelectedEmployeeForLeave(record);
+            
+            // Clean up any stray backdrops before opening modal
             setTimeout(() => {
               cleanupExcessBackdrops();
-            }, 100);
-            
-            setSelectedEmployeeForLeave(record);
+              openModal('assign_leave_modal');
+            }, 50);
           }}
-          data-bs-toggle="modal"
-          data-bs-target="#assign_leave_modal"
           title="Manage Leaves"
         >
           <i className="ti ti-calendar" />
@@ -631,17 +631,17 @@ const Companies = () => {
           className="btn btn-sm btn-outline-secondary"
           onClick={(e) => {
             e.preventDefault();
+            e.stopPropagation();
             console.log("Selected employee for shift:", record);
+            
+            setSelectedEmployeeForShift(record);
             
             // Clean up any stray backdrops before opening modal
             setTimeout(() => {
               cleanupExcessBackdrops();
-            }, 100);
-            
-            setSelectedEmployeeForShift(record);
+              openModal('assign_shift_modal');
+            }, 50);
           }}
-          data-bs-toggle="modal"
-          data-bs-target="#assign_shift_modal"
           title="Assign Shift"
         >
           <i className="ti ti-clock" />
@@ -657,17 +657,17 @@ const Companies = () => {
           className="btn btn-sm btn-outline-secondary"
           onClick={(e) => {
             e.preventDefault();
+            e.stopPropagation();
             console.log("Selected employee for week off:", record);
+            
+            setSelectedEmployeeForWeekOff(record);
             
             // Clean up any stray backdrops before opening modal
             setTimeout(() => {
               cleanupExcessBackdrops();
-            }, 100);
-            
-            setSelectedEmployeeForWeekOff(record);
+              openModal('assign_week_off_modal');
+            }, 50);
           }}
-          data-bs-toggle="modal"
-          data-bs-target="#assign_week_off_modal"
           title="Assign Week Off"
         >
           <i className="ti ti-calendar-off" />
@@ -730,17 +730,17 @@ const Companies = () => {
           className="btn btn-sm btn-outline-secondary"
           onClick={(e) => {
             e.preventDefault();
+            e.stopPropagation();
             console.log("Selected employee for location:", record);
+            
+            setSelectedEmployeeForLocation(record);
             
             // Clean up any stray backdrops before opening modal
             setTimeout(() => {
               cleanupExcessBackdrops();
-            }, 100);
-            
-            setSelectedEmployeeForLocation(record);
+              openModal('assign_location_modal');
+            }, 50);
           }}
-          data-bs-toggle="modal"
-          data-bs-target="#assign_location_modal"
           title="Assign Location"
         >
           <i className="ti ti-map-pin" />

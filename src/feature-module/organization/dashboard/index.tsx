@@ -5,7 +5,7 @@ import { Table } from "antd";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import CollapseHeader from "../../../core/common/collapse-header/collapse-header";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { all_routes } from "../../router/all_routes";
 import { notifySiteChange } from "../../../core/utils/apiHelpers";
 
@@ -44,6 +44,7 @@ interface AdminListResponse {
 
 const OrganizationDashboard = () => {
   const routes = all_routes;
+  const location = useLocation();
   const [admins, setAdmins] = useState<Admin[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedAdmin, setSelectedAdmin] = useState<Admin | null>(null);
@@ -90,6 +91,15 @@ const OrganizationDashboard = () => {
       // Admin will be loaded after admins list is fetched
     }
   }, [searchQuery]);
+
+  // Handle opening Add Admin modal from navigation state
+  useEffect(() => {
+    if (location.state && (location.state as any).openAddAdminModal) {
+      setShowAddAdminModal(true);
+      // Clear the state to prevent reopening on re-render or refresh
+      window.history.replaceState({}, document.title, location.pathname);
+    }
+  }, [location]);
 
   useEffect(() => {
     // When admins are loaded, check if we have a saved admin selection

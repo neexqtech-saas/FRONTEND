@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -70,7 +70,17 @@ const Header = () => {
   const [adminName, setAdminName] = useState<string | null>(null);
   const [adminSiteName, setAdminSiteName] = useState<string | null>(null);
   
-  const role = sessionStorage.getItem("role");
+  // Profile dropdown state
+  const [showProfileDropdown, setShowProfileDropdown] = useState(false);
+  const profileDropdownRef = useRef<HTMLDivElement>(null);
+  
+  // Admin and Site dropdown states
+  const [showAdminDropdown, setShowAdminDropdown] = useState(false);
+  const adminDropdownRef = useRef<HTMLDivElement>(null);
+  const [showSiteDropdown, setShowSiteDropdown] = useState(false);
+  const siteDropdownRef = useRef<HTMLDivElement>(null);
+  
+  const role = sessionStorage.getItem("role")?.trim();
 
   const handleLogout = () => {
     // Clear all session storage
@@ -282,6 +292,7 @@ const Header = () => {
     const admin = admins.find(a => a.id === adminId);
     if (admin) {
       setSelectedAdmin(admin);
+      setShowAdminDropdown(false); // Close dropdown
       const userId = admin.user?.id || admin.user_id;
       if (userId) {
         sessionStorage.setItem("selected_admin_id", userId);
@@ -307,6 +318,7 @@ const Header = () => {
     const site = sites.find((s: any) => String(s.id) === siteIdStr);
     if (site) {
       setSelectedSite(site);
+      setShowSiteDropdown(false); // Close dropdown
       // Use notifySiteChange to update sessionStorage and dispatch event
       notifySiteChange(String(site.id), site.site_name);
       toast.success(`Switched to site: ${site.site_name}`);
@@ -342,6 +354,67 @@ const Header = () => {
       document.head.removeChild(style);
     };
   }, []);
+
+  // Close profile dropdown when clicking outside
+  React.useEffect(() => {
+    if (!showProfileDropdown) return;
+    
+    const handleClickOutside = (event: MouseEvent) => {
+      if (profileDropdownRef.current && !profileDropdownRef.current.contains(event.target as Node)) {
+        setShowProfileDropdown(false);
+      }
+    };
+    
+    // Use setTimeout to ensure the dropdown is rendered before adding listener
+    const timeoutId = setTimeout(() => {
+      document.addEventListener('click', handleClickOutside, true);
+    }, 0);
+    
+    return () => {
+      clearTimeout(timeoutId);
+      document.removeEventListener('click', handleClickOutside, true);
+    };
+  }, [showProfileDropdown]);
+
+  // Close admin dropdown when clicking outside
+  React.useEffect(() => {
+    if (!showAdminDropdown) return;
+    
+    const handleClickOutside = (event: MouseEvent) => {
+      if (adminDropdownRef.current && !adminDropdownRef.current.contains(event.target as Node)) {
+        setShowAdminDropdown(false);
+      }
+    };
+    
+    const timeoutId = setTimeout(() => {
+      document.addEventListener('click', handleClickOutside, true);
+    }, 0);
+    
+    return () => {
+      clearTimeout(timeoutId);
+      document.removeEventListener('click', handleClickOutside, true);
+    };
+  }, [showAdminDropdown]);
+
+  // Close site dropdown when clicking outside
+  React.useEffect(() => {
+    if (!showSiteDropdown) return;
+    
+    const handleClickOutside = (event: MouseEvent) => {
+      if (siteDropdownRef.current && !siteDropdownRef.current.contains(event.target as Node)) {
+        setShowSiteDropdown(false);
+      }
+    };
+    
+    const timeoutId = setTimeout(() => {
+      document.addEventListener('click', handleClickOutside, true);
+    }, 0);
+    
+    return () => {
+      clearTimeout(timeoutId);
+      document.removeEventListener('click', handleClickOutside, true);
+    };
+  }, [showSiteDropdown]);
 
   const [subOpen, setSubopen] = useState<any>("");
   const [subsidebar, setSubsidebar] = useState("");
@@ -611,19 +684,18 @@ const Header = () => {
 					<div className="d-flex align-items-center gap-3">
 						{/* Admin Selector for Organization Role */}
 						{role === "organization" && (
-							<div className="dropdown">
-								<button
-									className="btn btn-light dropdown-toggle d-flex align-items-center"
-									type="button"
-									id="adminSelectorDropdown"
-									data-bs-toggle="dropdown"
-									aria-expanded="false"
-									disabled={loadingAdmins || admins.length === 0}
+							<div className="d-flex align-items-center">
+								{/* Main Admin Button - Navigates to Dashboard */}
+								<Link
+									to={routes.organizationDashboard}
+									className="btn btn-light d-flex align-items-center text-decoration-none"
 									style={{
 										minWidth: '200px',
 										justifyContent: 'space-between',
 										borderRadius: '8px',
-										fontSize: '14px'
+										fontSize: '14px',
+										cursor: 'pointer',
+										color: '#1f2937'
 									}}
 								>
 									<span className="d-flex align-items-center">
@@ -633,15 +705,51 @@ const Header = () => {
 										) : selectedAdmin ? (
 											<span>{selectedAdmin.admin_name}</span>
 										) : (
-											<span>Select Admin</span>
+											<span>Admin</span>
 										)}
 									</span>
-								</button>
-								<ul
-									className="dropdown-menu dropdown-menu-end"
-									aria-labelledby="adminSelectorDropdown"
-									style={{ minWidth: '250px', maxHeight: '400px', overflowY: 'auto' }}
-								>
+								</Link>
+								{/* Dropdown for Admin Selection */}
+								<div className="dropdown ms-2" ref={adminDropdownRef} style={{ position: 'relative' }}>
+									<button
+										className="btn btn-light dropdown-toggle d-flex align-items-center justify-content-center"
+										type="button"
+										onClick={(e) => {
+											e.preventDefault();
+											e.stopPropagation();
+											setShowAdminDropdown(!showAdminDropdown);
+										}}
+										disabled={loadingAdmins}
+										title="Select Admin"
+										style={{
+											borderRadius: '8px',
+											fontSize: '16px',
+											width: '40px',
+											height: '40px',
+											padding: '0',
+											position: 'relative',
+											zIndex: 1000,
+											border: '1px solid #dee2e6',
+											cursor: loadingAdmins ? 'not-allowed' : 'pointer'
+										}}
+									>
+										<i className="ti ti-chevron-down"></i>
+									</button>
+									{showAdminDropdown && (
+										<ul
+											className="dropdown-menu dropdown-menu-end show"
+											style={{ 
+												minWidth: '250px', 
+												maxHeight: '400px', 
+												overflowY: 'auto',
+												zIndex: 1050,
+												position: 'absolute',
+												top: '100%',
+												right: 0,
+												marginTop: '8px',
+												display: 'block'
+											}}
+										>
 									<li>
 										<h6 className="dropdown-header">Select Admin</h6>
 									</li>
@@ -672,40 +780,50 @@ const Header = () => {
 											</li>
 										))
 									)}
+									<li><hr className="dropdown-divider" /></li>
+									<li>
+										<Link
+											className="dropdown-item d-flex align-items-center"
+											to={routes.organizationDashboard}
+											state={{ openAddAdminModal: true }}
+										>
+											<i className="ti ti-user-plus me-2"></i>
+											<span>Add Admin</span>
+										</Link>
+									</li>
 									{admins.length > 0 && (
-										<>
-											<li><hr className="dropdown-divider" /></li>
-											<li>
-												<Link
-													className="dropdown-item d-flex align-items-center"
-													to={routes.organizationDashboard}
-												>
-													<i className="ti ti-dashboard me-2"></i>
-													<span>Go to Dashboard</span>
-												</Link>
-											</li>
-										</>
+										<li>
+											<Link
+												className="dropdown-item d-flex align-items-center"
+												to={routes.organizationDashboard}
+											>
+												<i className="ti ti-dashboard me-2"></i>
+												<span>Go to Dashboard</span>
+											</Link>
+										</li>
 									)}
-								</ul>
+									</ul>
+									)}
+								</div>
 							</div>
 						)}
 						
 						{/* Site Selector for Organization Role */}
 						{role === "organization" && selectedAdmin && (
-							<div className="dropdown">
+							<div className="d-flex align-items-center">
+								{/* Main Site Button - Shows Selected Site */}
 								<button
-									className="btn btn-light dropdown-toggle d-flex align-items-center"
-									type="button"
-									id="siteSelectorDropdown"
-									data-bs-toggle="dropdown"
-									aria-expanded="false"
-									disabled={loadingSites || sites.length === 0}
+									className="btn btn-light d-flex align-items-center text-decoration-none"
 									style={{
 										minWidth: '200px',
 										justifyContent: 'space-between',
 										borderRadius: '8px',
-										fontSize: '14px'
+										fontSize: '14px',
+										cursor: 'pointer',
+										color: '#1f2937',
+										border: '1px solid #dee2e6'
 									}}
+									disabled
 								>
 									<span className="d-flex align-items-center">
 										<i className="ti ti-map-pin me-2"></i>
@@ -718,11 +836,47 @@ const Header = () => {
 										)}
 									</span>
 								</button>
-								<ul
-									className="dropdown-menu dropdown-menu-end"
-									aria-labelledby="siteSelectorDropdown"
-									style={{ minWidth: '250px', maxHeight: '400px', overflowY: 'auto' }}
-								>
+								{/* Dropdown for Site Selection */}
+								<div className="dropdown ms-2" ref={siteDropdownRef} style={{ position: 'relative' }}>
+									<button
+										className="btn btn-light dropdown-toggle d-flex align-items-center justify-content-center"
+										type="button"
+										onClick={(e) => {
+											e.preventDefault();
+											e.stopPropagation();
+											setShowSiteDropdown(!showSiteDropdown);
+										}}
+										disabled={loadingSites || sites.length === 0}
+										title="Select Site"
+										style={{
+											borderRadius: '8px',
+											fontSize: '16px',
+											width: '40px',
+											height: '40px',
+											padding: '0',
+											position: 'relative',
+											zIndex: 1000,
+											border: '1px solid #dee2e6',
+											cursor: (loadingSites || sites.length === 0) ? 'not-allowed' : 'pointer'
+										}}
+									>
+										<i className="ti ti-chevron-down"></i>
+									</button>
+								{showSiteDropdown && (
+									<ul
+										className="dropdown-menu dropdown-menu-end show"
+										style={{ 
+											minWidth: '250px', 
+											maxHeight: '400px', 
+											overflowY: 'auto',
+											zIndex: 1050,
+											position: 'absolute',
+											top: '100%',
+											right: 0,
+											marginTop: '8px',
+											display: 'block'
+										}}
+									>
 									<li>
 										<h6 className="dropdown-header">Select Site</h6>
 									</li>
@@ -757,40 +911,79 @@ const Header = () => {
 										})
 									)}
 								</ul>
+								)}
+								</div>
 							</div>
 						)}
 						
-						<div className="dropdown profile-dropdown">
-							<Link to="#" className="dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown">
+						<div className="dropdown profile-dropdown" ref={profileDropdownRef} style={{ position: 'relative' }}>
+							<button 
+								type="button"
+								className="dropdown-toggle d-flex align-items-center border-0 bg-transparent p-0"
+								onClick={(e) => {
+									e.preventDefault();
+									e.stopPropagation();
+									setShowProfileDropdown(!showProfileDropdown);
+								}}
+								style={{ cursor: 'pointer' }}
+							>
 								<span className="avatar avatar-md online">
 									<ImageWithBasePath src="assets/img/profiles/avatar-12.jpg" alt="Img" className="img-fluid rounded-circle"/>
 								</span>
-							</Link>
-								<div className="dropdown-menu dropdown-menu-end shadow-lg border-0 p-0" style={{ minWidth: '200px', borderRadius: '8px' }}>
-									<div className="card mb-0 border-0">
-										<div className="card-body p-3">
-											<Link className="dropdown-item d-flex align-items-center px-3 py-2 rounded mb-2" to={routes.securitysettings} style={{ transition: 'all 0.3s ease' }}>
-												<i className="ti ti-lock me-3" style={{ fontSize: '20px' }}></i>
-												<span className="fw-medium">Change Password</span>
-											</Link>
-										</div>
-										<div className="card-footer border-top p-3 pt-2">
-											<Link 
-												className="dropdown-item d-flex align-items-center px-3 py-2 rounded text-danger" 
-												to="#" 
-												onClick={(e) => {
-													e.preventDefault();
-													handleLogout();
-												}}
-												style={{ transition: 'all 0.3s ease', cursor: 'pointer' }}
-											>
-												<i className="ti ti-logout me-3" style={{ fontSize: '20px' }}></i>
-												<span className="fw-medium">Logout</span>
-											</Link>
-										</div>
+							</button>
+							{showProfileDropdown && (
+								<div 
+									className="dropdown-menu dropdown-menu-end shadow-lg border-0 p-2 show" 
+									style={{ 
+										minWidth: '220px', 
+										borderRadius: '8px', 
+										zIndex: 1050,
+										position: 'absolute',
+										top: '100%',
+										right: 0,
+										marginTop: '8px',
+										display: 'block',
+										opacity: 1,
+										visibility: 'visible'
+									}}
+								>
+									<div className="d-flex flex-column gap-2">
+										{/* Change Password Button */}
+										<Link 
+											className="btn btn-outline-primary d-flex align-items-center justify-content-start w-100" 
+											to={routes.securitysettings}
+											onClick={() => setShowProfileDropdown(false)}
+											style={{ 
+												transition: 'all 0.3s ease',
+												borderRadius: '6px',
+												padding: '10px 15px'
+											}}
+										>
+											<i className="ti ti-lock me-2" style={{ fontSize: '18px' }}></i>
+											<span className="fw-medium">Change Password</span>
+										</Link>
+										
+										{/* Logout Button */}
+										<button
+											className="btn btn-outline-danger d-flex align-items-center justify-content-start w-100"
+											onClick={(e) => {
+												e.preventDefault();
+												setShowProfileDropdown(false);
+												handleLogout();
+											}}
+											style={{ 
+												transition: 'all 0.3s ease',
+												borderRadius: '6px',
+												padding: '10px 15px',
+												cursor: 'pointer'
+											}}
+										>
+											<i className="ti ti-logout me-2" style={{ fontSize: '18px' }}></i>
+											<span className="fw-medium">Logout</span>
+										</button>
 									</div>
 								</div>
-							</div>
+							)}
 						</div>
 					</div>
 				</div>
@@ -799,21 +992,32 @@ const Header = () => {
 					<Link to="#" className="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
 						<i className="fa fa-ellipsis-v"></i>
 					</Link>
-					<div className="dropdown-menu dropdown-menu-end">
-						<Link className="dropdown-item" to={routes.securitysettings}>Change Password</Link>
-						<Link 
-							className="dropdown-item" 
-							to="#" 
-							onClick={(e) => {
-								e.preventDefault();
-								handleLogout();
-							}}
-						>
-							Logout
-						</Link>
+					<div className="dropdown-menu dropdown-menu-end p-2" style={{ minWidth: '200px', borderRadius: '8px' }}>
+						<div className="d-flex flex-column gap-2">
+							<Link 
+								className="btn btn-outline-primary btn-sm d-flex align-items-center justify-content-start w-100" 
+								to={routes.securitysettings}
+								style={{ borderRadius: '6px', padding: '8px 12px' }}
+							>
+								<i className="ti ti-lock me-2"></i>
+								Change Password
+							</Link>
+							<button
+								className="btn btn-outline-danger btn-sm d-flex align-items-center justify-content-start w-100"
+								onClick={(e) => {
+									e.preventDefault();
+									handleLogout();
+								}}
+								style={{ borderRadius: '6px', padding: '8px 12px', cursor: 'pointer' }}
+							>
+								<i className="ti ti-logout me-2"></i>
+								Logout
+							</button>
+						</div>
 					</div>
 				</div>
 
+				</div>
 			</div>
 
 		</div>

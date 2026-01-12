@@ -208,8 +208,16 @@ const VisitModal: React.FC<VisitModalProps> = ({
       if (editingVisit) {
         // Update existing visit
         const user_id = editingVisit.assigned_employee || formData.assigned_employee;
+        let url = `${BACKEND_PATH}visit/visit-detail-update-delete/${site_id}/${user_id}/${editingVisit.id}/`;
+        
+        // Add admin_id for organization role
+        const role = sessionStorage.getItem("role");
+        if (role === "organization" && admin_id) {
+          url += `?admin_id=${admin_id}`;
+        }
+        
         response = await axios.put(
-          `${BACKEND_PATH}visit/visit-detail-update-delete/${site_id}/${user_id}/${editingVisit.id}/`,
+          url,
           payload,
           {
             headers: {
@@ -221,8 +229,16 @@ const VisitModal: React.FC<VisitModalProps> = ({
         onVisitUpdated();
       } else {
         // Create new visit
+        let url = `${BACKEND_PATH}visit/visit-list-create/${site_id}/`;
+        
+        // Add admin_id for organization role
+        const role = sessionStorage.getItem("role");
+        if (role === "organization" && admin_id) {
+          url += `?admin_id=${admin_id}`;
+        }
+        
         response = await axios.post(
-          `${BACKEND_PATH}visit/visit-list-create/${site_id}/`,
+          url,
           payload,
           {
             headers: {

@@ -112,6 +112,11 @@ const Visits = () => {
       }
       
       const params = new URLSearchParams();
+      // Add admin_id for organization role
+      const role = sessionStorage.getItem("role");
+      if (role === "organization" && admin_id) {
+        params.append('admin_id', admin_id);
+      }
       if (debouncedSearchQuery) {
         params.append('search', debouncedSearchQuery);
       }
@@ -451,6 +456,11 @@ const Visits = () => {
                         }
                         
                         const params = new URLSearchParams();
+                        // Add admin_id for organization role
+                        const role = sessionStorage.getItem("role");
+                        if (role === "organization" && admin_id) {
+                          params.append('admin_id', admin_id);
+                        }
                         if (debouncedSearchQuery) {
                           params.append('search', debouncedSearchQuery);
                         }

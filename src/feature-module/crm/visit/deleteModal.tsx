@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { getSelectedSiteId, BACKEND_PATH } from "../../../core/utils/apiHelpers";
+import { getSelectedSiteId, getAdminIdForApi, BACKEND_PATH } from "../../../core/utils/apiHelpers";
 
 interface DeleteModalProps {
   visitId: string | null;
@@ -33,14 +33,20 @@ const DeleteModal: React.FC<DeleteModalProps> = ({
       // We need to get the visit first to get user_id, or we can modify the API
       // For now, let's try to delete with site_id and visit_id
       // We'll need to fetch the visit first to get user_id
-      const getVisitResponse = await axios.get(
-        `${BACKEND_PATH}visit/visit-list-create/${site_id}/`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const admin_id = getAdminIdForApi();
+      let url = `${BACKEND_PATH}visit/visit-list-create/${site_id}/`;
+      
+      // Add admin_id for organization role
+      const role = sessionStorage.getItem("role");
+      if (role === "organization" && admin_id) {
+        url += `?admin_id=${admin_id}`;
+      }
+      
+      const getVisitResponse = await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       let visits = [];
       if (getVisitResponse.data && getVisitResponse.data.data) {
@@ -62,8 +68,16 @@ const DeleteModal: React.FC<DeleteModalProps> = ({
 
       const user_id = visit.assigned_employee || visit.assigned_employee_id;
 
+      let deleteUrl = `${BACKEND_PATH}visit/visit-detail-update-delete/${site_id}/${user_id}/${visitId}/`;
+      
+      // Add admin_id for organization role
+      const roleForDelete = sessionStorage.getItem("role");
+      if (roleForDelete === "organization" && admin_id) {
+        deleteUrl += `?admin_id=${admin_id}`;
+      }
+
       const response = await axios.delete(
-        `${BACKEND_PATH}visit/visit-detail-update-delete/${site_id}/${user_id}/${visitId}/`,
+        deleteUrl,
         {
           headers: {
             Authorization: `Bearer ${token}`,

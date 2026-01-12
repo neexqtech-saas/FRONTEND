@@ -126,7 +126,10 @@ const AssignSiteModal: React.FC<AssignSiteModalProps> = ({
       }
 
       const role = sessionStorage.getItem("role");
-      let url = `${BACKEND_PATH}sites/${admin_id}/`;
+      let url = `${BACKEND_PATH}admin/sites/`;
+      if (role === "organization" && admin_id) {
+        url += `?admin_id=${admin_id}`;
+      }
       
       const response = await axios.get(url, {
         headers: {
@@ -135,10 +138,13 @@ const AssignSiteModal: React.FC<AssignSiteModalProps> = ({
       });
 
       let sitesData = [];
-      if (response.data && response.data.data) {
+      if (response.data && response.data.status === 200 && response.data.data) {
+        // Handle array response
         if (Array.isArray(response.data.data)) {
           sitesData = response.data.data;
-        } else if (response.data.data.results && Array.isArray(response.data.data.results)) {
+        } 
+        // Handle paginated response
+        else if (response.data.data.results && Array.isArray(response.data.data.results)) {
           sitesData = response.data.data.results;
         }
       } else if (Array.isArray(response.data)) {
@@ -334,7 +340,6 @@ const AssignSiteModal: React.FC<AssignSiteModalProps> = ({
             <button
               type="button"
               className="btn-close"
-              data-bs-dismiss="modal"
               aria-label="Close"
               onClick={handleClose}
             ></button>
@@ -422,7 +427,6 @@ const AssignSiteModal: React.FC<AssignSiteModalProps> = ({
               <button
                 type="button"
                 className="btn btn-secondary"
-                data-bs-dismiss="modal"
                 onClick={handleClose}
                 disabled={loading}
               >

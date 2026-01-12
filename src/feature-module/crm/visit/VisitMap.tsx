@@ -156,6 +156,11 @@ const VisitMap = () => {
       }
 
       const params: any = {};
+      // Add admin_id for organization role
+      const role = sessionStorage.getItem("role");
+      if (role === "organization" && admin_id) {
+        params.admin_id = admin_id;
+      }
       if (dateFrom) {
         params.date_from = dateFrom.toISOString().split("T")[0];
       }
